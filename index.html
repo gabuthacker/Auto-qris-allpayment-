@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foto dengan Tombol Unduh dan Bagikan</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+        .photo-container {
+            margin-top: 50px;
+            text-align: center;
+        }
+        .photo-container img {
+            max-width: 100%;
+            height: auto;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .button {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            margin: 0 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .button i {
+            font-size: 30px;
+            color: white;
+        }
+        #downloadBtn {
+            background-color: #2ecc71;
+        }
+        #shareBtn {
+            background-color: #2ecc71;
+        }
+    </style>
+    <!-- Sertakan Kode Kit Font Awesome -->
+    <script src="https://kit.fontawesome.com/ed49aea2c0.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="photo-container">
+        <img id="photo" src="photo.jpg" alt="Foto">
+        <div class="buttons">
+            <div id="downloadBtn" class="button"><i class="fas fa-download"></i></div>
+            <div id="shareBtn" class="button"><i class="fas fa-share-alt"></i></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const link = document.createElement('a');
+            link.href = document.getElementById('photo').src;
+            link.download = 'photo.jpg';
+            link.click();
+        });
+
+        document.getElementById('shareBtn').addEventListener('click', function() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Lihat foto ini!',
+                    url: window.location.href
+                }).then(() => {
+                    console.log('Terima kasih telah membagikan!');
+                }).catch(console.error);
+            } else {
+                prompt('Salin tautan ini untuk dibagikan:', window.location.href);
+            }
+        });
+    </script>
+</body>
+</html>
